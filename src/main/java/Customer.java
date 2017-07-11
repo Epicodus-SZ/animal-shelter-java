@@ -1,3 +1,5 @@
+import org.sql2o.*;
+import java.util.List;
 
 enum Animal_Pref { CAT, DOG; }
 
@@ -6,6 +8,7 @@ public class Customer {
   private String phone;
   private Animal_Pref animal_pref;
   private String breed_pref;
+  private int id;
 
   //the constructor
   public Customer(String name, String phone, Animal_Pref animal_pref, String breed_pref){
@@ -28,9 +31,9 @@ public class Customer {
   }
 
   public static List<Customer> all() {
-     String sql = "SELECT id, name, gender, animal_type, breed, admit FROM animals";
+     String sql = "SELECT id, name, phone, animal_pref, breed_pref FROM customers";
      try(Connection con = DB.sql2o.open()) {
-       return con.createQuery(sql).executeAndFetch(Animal.class);
+       return con.createQuery(sql).executeAndFetch(Customer.class);
      }
    }
 } // end of Customer class
